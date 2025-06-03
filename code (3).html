@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blithe Jan Tristen Gonzales - Portfolio</title>
+<style>
+  :root {
+    --primary-color: #ffffff; /* Indigo-600 */
+    --secondary-color: #ec7749; /* Gray-500 */
+    --bg-color: #000000; /* Gray-50 */
+    --text-color: #dfdfdf; /* Gray-900 */
+    --link-color: #002169; /* Blue-600 */
+    --header-bg: #000000;
+    --footer-bg: #eff1fb;
+    --shadow-color: rgba(0,0,0,0.1);
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a:hover, a:focus {
+    color: var(--primary-color);
+  }
+
+  header {
+    background: var(--header-bg);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  /* Logo container for custom image */
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+  }
+  .logo img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  nav ul li a {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  main {
+    max-width: 960px;
+    margin: 40px auto 80px; /* room for footer */
+    padding: 0 20px;
+    flex-grow: 1;
+  }
+
+  /* Intro Section */
+  .intro {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .intro-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+  .intro-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .fullname {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+  }
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Social Icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 0; /* remove inline gap */
+  }
+  .social-icons a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    color: var(--secondary-color);
+    transition: color 0.25s ease;
+  }
+  .social-icons a:hover, .social-icons a:focus {
+    color: var(--primary-color);
+  }
+  .social-icons svg {
+    width: 36px;
+    height: 36px;
+    fill: currentColor;
+  }
+
+  /* Sections */
+  section {
+    margin-bottom: 60px;
+  }
+  section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 4px;
+  }
+
+  /* Video Containers */
+  .videos-grid {
+    display: grid;
+    gap: 24px;
+  }
+  .videos-grid.vertical {
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  }
+
+  .videos-grid.horizontal {
+    grid-template-columns: repeat(2, 1fr); /* Show 2 videos per row */
+    gap: 20px; /* Adjusted gap */
+  }
+  
+  .video-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    background: white;
+  }
+  .video-item iframe {
+    width: 100%;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    display: block;
+  }
+
+  .video-title {
+    display: none; /* This will hide all video titles */
+  }
+
+  .video-item.horizontal:hover {
+    transform: scale(1.02);
+  } 
+
+  .video-item.vertical iframe {
+    aspect-ratio: 9 / 16;
+  }
+  .video-item.horizontal iframe,
+  .video-item.horizontal video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+  }
+  .video-title {
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+
+  @media (max-width: 768px) {
+    .videos-grid.horizontal {
+      grid-template-columns: 1fr; /* Single column on smaller screens */
+      gap: 24px;
+    }
+  }
+
+  .videos-grid.vertical {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.shorts-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 16px;
+  flex-wrap: nowrap;
+  scroll-snap-type: x mandatory;
+}
+
+.video-container {
+  width: 280px;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-container:hover {
+  transform: scale(1.05); /* 👈 Slight expansion on hover */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); /* 👈 Optional: deeper shadow */
+}
+  /* Graphics grid */
+  .graphics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    gap: 20px;
+  }
+  .graphic-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    background: white;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  .graphic-item:hover, .graphic-item:focus-within {
+    transform: scale(1.05);
+  }
+  .graphic-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* good for preview */
+  display: block;
+}
+
+/* When video goes fullscreen */
+video:fullscreen {
+  object-fit: contain !important; /* 👈 Keeps entire vertical video visible */
+  background: #000;
+}
+
+  /* Scroll behavior for nav links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--footer-bg);
+    padding: 24px 20px;
+    box-shadow: 0 -2px 8px var(--shadow-color);
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+  }
+  footer .footer-fullname {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+  footer .footer-quote {
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  footer .social-icons-footer {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 0;
+    margin: 0 auto;
+  }
+  footer .social-icons-footer a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    color: var(--secondary-color);
+    transition: color 0.25s ease;
+  }
+  footer .social-icons-footer a:hover, footer .social-icons-footer a:focus {
+    color: var(--primary-color);
+  }
+  footer .social-icons-footer svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    nav ul {
+      gap: 12px;
+    }
+    .videos-grid.vertical {
+      grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+    }
+    .videos-grid.horizontal {
+      width: 100%; /* Full width of grid column */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .graphic-item {
+      grid-column: span 1;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <nav aria-label="Primary Navigation">
+      <a href="#" class="logo" aria-label="Logo">
+        <img src="blithelogo.png" alt="Blithe Jan Tristen Gonzales Logo" width="60" />
+      </a>
+      <ul role="list">
+        <li><a href="#shorts">SHORTS</a></li>
+        <li><a href="#long-form">LONG FORM</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#graphics">GRAPHICS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <!-- Intro Section -->
+  <section class="intro" id="contact" aria-label="Contact Information">
+    <div class="intro-photo">
+      <img src="blithe.jpeg" alt="Photo of Blithe Jan Tristen Gonzales" />
+    </div>
+    <h1 class="fullname">Blithe Jan Tristen Gonzales</h1>
+    <p class="tagline">A freelance Video Editor, Graphics Designer, Web Designer, UI/UX Designer, and Mobile App Developer</p>
+    <div class="social-icons" role="list">
+      <a href="mailto:bjlithe@gmail.com" aria-label="Email" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://instagram.com/blithe.creatives" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5a5.75 5.75 0 005.75-5.75v-8.5A5.75 5.75 0 0016.25 2h-8.5zm0 2h8.5a3.75 3.75 0 013.75 3.75v8.5a3.75 3.75 0 01-3.75 3.75h-8.5a3.75 3.75 0 01-3.75-3.75v-8.5A3.75 3.75 0 017.75 4zm8.25 2a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+      </a>
+      <a href="https://facebook.com/bigmanblithe" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54v-2.2c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.89h-2.3V22C18.34 21.13 22 17 22 12z"/></svg>
+      </a>
+      <a href="https://www.onlinejobs.ph/members/blithe" aria-label="OnlineJobsPH" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 64 64" aria-hidden="true" fill="currentColor"><circle cx="32" cy="32" r="30" fill="#2563eb"/><path fill="#fff" d="M19 19h26v26H19z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/blithe" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3A2.5 2.5 0 002.5 5.48a2.5 2.5 0 002.48 2.52A2.5 2.5 0 007.5 5.48 2.5 2.5 0 004.98 3zM2 9h6v12H2zM15 9c-1.66 0-3 1.34-3 3v9h6v-9c0-1.66-1.34-3-3-3zm0 4h-2v5h2v-5z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Shorts Section -->
+  <section id="shorts">
+    <h2>SHORTS</h2>
+<div class="shorts-row">
+  <div class="video-container">
+    <video src="short 1.mp4" controls playsinline></video>
+  </div>
+
+  <div class="video-container">
+    <video src="short 2.mp4" controls playsinline></video>
+  </div>
+
+  <div class="video-container">
+    <video src="short 3.mp4" controls playsinline></video>
+  </div>
+</div>
+
+<div class="video-container">
+    <video src="short 4.mp4" controls playsinline></video>
+  </div>
+</div>
+  </section>
+
+  <!-- Long Form Section -->
+  <section id="long-form">
+    <h2>LONG FORM</h2>
+    
+    <div class="videos-grid horizontal">
+      <div class="video-item horizontal" aria-label="Long form video 1">
+        <video src="FULL - EP 201-Ryan Michler.mp4" controls playsinline ></video>
+      </div>
+
+      <div class="video-item horizontal" aria-label="Long form video 2">
+        <iframe src="https://drive.google.com/file/d/0z9y8x7w6v5u4t3s2r1q/preview" title="Long Form Video 2" allow="fullscreen" allowfullscreen></iframe>
+        <div class="video-title">Long Form Video 2</div>
+      </div>
+
+      <div class="video-item horizontal" aria-label="Long form video 3">
+        <iframe src="https://player.vimeo.com/video/876543210" title="Long Form Video 3" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-title">Long Form Video 3</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Graphics Section -->
+  <section id="graphics">
+    <h2>GRAPHICS</h2>
+    <div class="graphics-grid" role="list">
+      <a href="https://via.placeholder.com/600x400?text=Graphic+1" class="graphic-item" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Graphic 1">
+        <img src="https://via.placeholder.com/600x400?text=Graphic+1" alt="Graphic design 1" />
+      </a>
+      <a href="https://via.placeholder.com/600x400?text=Graphic+2" class="graphic-item" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Graphic 2">
+        <img src="https://via.placeholder.com/600x400?text=Graphic+2" alt="Graphic design 2" />
+      </a>
+      <a href="https://via.placeholder.com/600x400?text=Graphic+3" class="graphic-item" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Graphic 3">
+        <img src="https://via.placeholder.com/600x400?text=Graphic+3" alt="Graphic design 3" />
+      </a>
+      <a href="https://via.placeholder.com/600x400?text=Graphic+4" class="graphic-item" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Graphic 4">
+        <img src="https://via.placeholder.com/600x400?text=Graphic+4" alt="Graphic design 4" />
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-fullname">Blithe Jan Tristen Gonzales</div>
+    <div class="footer-quote">"A creative mind who loves to learn"</div>
+    <div class="social-icons-footer" role="list">
+      <a href="mailto:blithe@example.com" aria-label="Email" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://instagram.com/blithe" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5a5.75 5.75 0 005.75-5.75v-8.5A5.75 5.75 0 0016.25 2h-8.5zm0 2h8.5a3.75 3.75 0 013.75 3.75v8.5a3.75 3.75 0 01-3.75 3.75h-8.5a3.75 3.75 0 01-3.75-3.75v-8.5A3.75 3.75 0 017.75 4zm8.25 2a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+      </a>
+      <a href="https://facebook.com/blithe" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54v-2.2c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.89h-2.3V22C18.34 21.13 22 17 22 12z"/></svg>
+      </a>
+      <a href="https://www.onlinejobs.ph/members/blithe" aria-label="OnlineJobsPH" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 64 64" aria-hidden="true" fill="currentColor"><circle cx="32" cy="32" r="30" fill="#2563eb"/><path fill="#fff" d="M19 19h26v26H19z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/blithe" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3A2.5 2.5 0 002.5 5.48a2.5 2.5 0 002.48 2.52A2.5 2.5 0 007.5 5.48 2.5 2.5 0 004.98 3zM2 9h6v12H2zM15 9c-1.66 0-3 1.34-3 3v9h6v-9c0-1.66-1.34-3-3-3zm0 4h-2v5h2v-5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
